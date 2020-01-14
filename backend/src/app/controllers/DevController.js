@@ -33,28 +33,32 @@ class DevController {
 
     const techsArray = parseStringAsArray(techs);
 
-    const response = await api.get(`/users/${github_username}`);
+    try {
+      const response = await api.get(`/users/${github_username}`);
 
-    const { name = login, avatar_url, bio } = response.data;
+      const { name = login, avatar_url, bio } = response.data;
 
-    const location = {
-      type: 'Point',
-      coordinates: [
-        longitude,
-        latitude
-      ]
+      const location = {
+        type: 'Point',
+        coordinates: [
+          longitude,
+          latitude
+        ]
+      }
+
+      dev = await Dev.create({
+        github_username,
+        name,
+        avatar_url,
+        bio,
+        techs: techsArray,
+        location,
+      });
+
+      return res.json(dev);
+    } catch (err) {
+      return res.status(404).json({ error: 'User not found' });
     }
-
-    dev = await Dev.create({
-      github_username,
-      name,
-      avatar_url,
-      bio,
-      techs: techsArray,
-      location,
-    });
-
-    return res.json(dev);
   }
 }
 
