@@ -4,6 +4,12 @@ import * as Yup from 'yup';
 import api from '../../services';
 
 class DevController {
+  async index(req, res) {
+    const devs = await Dev.find();
+
+    return res.json(devs);
+  }
+
   async store(req, res) {
     const schema = Yup.object().shape({
       github_username: Yup.string().required(),
