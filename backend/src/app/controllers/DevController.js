@@ -2,6 +2,7 @@ import Dev from '../models/Dev';
 import * as Yup from 'yup';
 
 import api from '../../services';
+import parseStringAsArray from '../../utils/ParseStringAsArray'
 
 class DevController {
   async index(req, res) {
@@ -30,7 +31,7 @@ class DevController {
       return res.status(404).json({ error: 'User already registered' });
     }
 
-    const techsArray = techs.split(',').map(tech => tech.trim());
+    const techsArray = parseStringAsArray(techs);
 
     const response = await api.get(`/users/${github_username}`);
 
