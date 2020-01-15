@@ -3,6 +3,7 @@ import React from 'react';
 import './global.css';
 import './App.css';
 import './Sidebar.css';
+import './Main.css';
 
 function App() {
   return(
@@ -35,7 +36,34 @@ function App() {
           <button type="submit">Salvar</button>
         </form>
       </aside>
-      <main></main>
+
+      <main>
+        <ul>
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars2.githubusercontent.com/u/53630706?s=460&v=4" alt="João Lucas"/>
+              <div className="user-info">
+                <strong>João Lucas</strong>
+                <span>ReactJS, React Native, Node.js</span>
+              </div>
+            </header>
+            <p>Student of Stack ReactJS, React Native and NodeJS | Computer Science Student.</p>
+            <a href="https://github.com/joao-lucas-dev">Acessar perfil</a>
+          </li>
+
+          <li className="dev-item">
+            <header>
+              <img src="https://avatars2.githubusercontent.com/u/53630706?s=460&v=4" alt="João Lucas"/>
+              <div className="user-info">
+                <strong>João Lucas</strong>
+                <span>ReactJS, React Native, Node.js</span>
+              </div>
+            </header>
+            <p>Student of Stack ReactJS, React Native and NodeJS | Computer Science Student.</p>
+            <a href="https://github.com/joao-lucas-dev">Acessar perfil</a>
+          </li>
+        </ul>
+      </main>
     </div>
   )
 }
