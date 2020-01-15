@@ -8,6 +8,8 @@ import './Sidebar.css';
 import './Main.css';
 
 function App() {
+  const [devs, setDevs] = useState([]);
+
   const [github_username, setGithubUsername] = useState('');
   const [techs, setTechs] = useState('');
 
@@ -31,6 +33,16 @@ function App() {
     );
   }, []);
 
+  useEffect(() => {
+    async function loadDevs() {
+      const response = await api.get('/devs');
+
+      setDevs(response.data);
+    }
+
+    loadDevs();
+  }, []);
+
   async function handleAddDev(e) {
     e.preventDefault();
 
@@ -40,6 +52,11 @@ function App() {
       latitude,
       longitude,
     });
+
+    setGithubUsername('');
+    setTechs('');
+
+    setDevs([...devs, response.data]);
   }
 
   return(
@@ -103,29 +120,20 @@ function App() {
 
       <main>
         <ul>
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars2.githubusercontent.com/u/53630706?s=460&v=4" alt="João Lucas"/>
-              <div className="user-info">
-                <strong>João Lucas</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Student of Stack ReactJS, React Native and NodeJS | Computer Science Student.</p>
-            <a href="https://github.com/joao-lucas-dev">Acessar perfil</a>
-          </li>
+          {devs.map(dev => (
+            <li key={dev._id} className="dev-item">
+              <header>
+                <img src={dev.avatar_url} alt={dev.name} />
+                <div className="user-info">
+                  <strong>{dev.name}</strong>
+                  <span>{dev.techs.join(',')}</span>
+                </div>
+              </header>
+              <p>{dev.bio}</p>
+              <a href={`https://github.com/${dev.github_username}`} target="_blank">Acessar perfil</a>
+            </li>
+          ))}
 
-          <li className="dev-item">
-            <header>
-              <img src="https://avatars2.githubusercontent.com/u/53630706?s=460&v=4" alt="João Lucas"/>
-              <div className="user-info">
-                <strong>João Lucas</strong>
-                <span>ReactJS, React Native, Node.js</span>
-              </div>
-            </header>
-            <p>Student of Stack ReactJS, React Native and NodeJS | Computer Science Student.</p>
-            <a href="https://github.com/joao-lucas-dev">Acessar perfil</a>
-          </li>
         </ul>
       </main>
     </div>
