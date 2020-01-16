@@ -13,7 +13,7 @@ const Routes = createAppContainer(
       }
     },
     Profile: {
-      screen: Main,
+      screen: Profile,
       navigationOptions: {
         title: 'Perfil no GitHub'
       }
@@ -21,6 +21,7 @@ const Routes = createAppContainer(
   }, {
     defaultNavigationOptions: {
       headerTintColor: '#FFF',
+      headerBackTitleVisible: false,
       headerStyle: {
         backgroundColor: '#7D40E7'
       }
